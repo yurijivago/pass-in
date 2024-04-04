@@ -1,6 +1,6 @@
 package com.sytecnologias.passin.domain.attendee;
 
-import com.sytecnologias.passin.domain.event.Event;
+import com.sytecnologias.passin.domain.event.Events;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,7 +28,7 @@ public class Attendees {
 
     @ManyToOne
     @JoinColumn(name = "event_id", nullable = false)
-    private Event event;
+    private Events event;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;

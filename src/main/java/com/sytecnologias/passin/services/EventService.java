@@ -1,12 +1,13 @@
 package com.sytecnologias.passin.services;
 
 import com.sytecnologias.passin.domain.attendee.Attendees;
-import com.sytecnologias.passin.domain.event.Event;
+import com.sytecnologias.passin.domain.event.Events;
 import com.sytecnologias.passin.dto.EventIdDTO;
 import com.sytecnologias.passin.dto.EventRequestDTO;
 import com.sytecnologias.passin.dto.EventResponseDTO;
 import com.sytecnologias.passin.repositories.AttendeesRepository;
 import com.sytecnologias.passin.repositories.EventRepository;
+import jdk.jfr.Event;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,14 +21,14 @@ public class EventService {
     private final AttendeesRepository attendeesRepository;
 
     public EventResponseDTO getEventDetail(String eventId){
-        Event event = this.eventRepository.findById(eventId)
+        Events event = this.eventRepository.findById(eventId)
                 .orElseThrow( () -> new RuntimeException("Event not found with ID " + eventId));
-        List<Attendees> attendeesList = this.attendeesRepository.findByEventsId(eventId);
+        List<Attendees> attendeesList = this.attendeesRepository.findByEventId(eventId);
         return new EventResponseDTO(event, attendeesList.size());
     }
 
     public EventIdDTO createEvent(EventRequestDTO eventDTO){
-        Event newEvent = new Event();
+        Events newEvent = new Events();
         newEvent.setTitle(eventDTO.title());
         newEvent.setDetails(eventDTO.details());
         newEvent.setMaximumAttendees(eventDTO.maximumAttendees());

@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface AttendeesRepository extends JpaRepository<Attendees, String> {
-    public List<Attendees> findByEventsId(String eventId);
+    public List<Attendees> findByEventId(String eventId);
 }

@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Event {
+public class Events {
     @Id
     @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.UUID)
