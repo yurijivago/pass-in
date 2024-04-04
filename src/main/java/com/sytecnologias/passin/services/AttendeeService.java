@@ -7,7 +7,6 @@ import com.sytecnologias.passin.dto.attendee.AttendeesListResponseDTO;
 import com.sytecnologias.passin.repositories.AttendeesRepository;
 import com.sytecnologias.passin.repositories.CheckInRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -17,8 +16,8 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class AttendeeService {
-    private AttendeesRepository attendeesRepository;
-    private CheckInRepository checkInRepository;
+    private final AttendeesRepository attendeesRepository;
+    private final CheckInRepository checkInRepository;
 
     public List<Attendees> getAllAttendeesFromEvents(String eventId){
         return this.attendeesRepository.findByEventId(eventId);
