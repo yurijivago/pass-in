@@ -42,7 +42,7 @@ public class EventService {
 
     }
 
-    public AttendeeIdDTO registrarAttendeeOnEvent(String eventId, AttendeeRequestDTO attendeeRequestDTO){
+    public AttendeeIdDTO registerAttendeeOnEvent(String eventId, AttendeeRequestDTO attendeeRequestDTO){
         this.attendeeService.verifyAttendeeSubscription(attendeeRequestDTO.email(), eventId);
 
         Events event = this.getEventById(eventId);

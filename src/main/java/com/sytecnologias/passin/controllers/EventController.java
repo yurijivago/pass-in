@@ -1,5 +1,7 @@
 package com.sytecnologias.passin.controllers;
 
+import com.sytecnologias.passin.dto.attendee.AttendeeIdDTO;
+import com.sytecnologias.passin.dto.attendee.AttendeeRequestDTO;
 import com.sytecnologias.passin.dto.attendee.AttendeesListResponseDTO;
 import com.sytecnologias.passin.dto.event.EventIdDTO;
 import com.sytecnologias.passin.dto.event.EventRequestDTO;
@@ -28,6 +30,15 @@ public class EventController {
         EventIdDTO eventIdDTO = this.eventService.createEvent(body);
         var uri = uriComponentsBuilder.path("/events/{id}").buildAndExpand(eventIdDTO.eventId()).toUri();
         return ResponseEntity.created(uri).body(eventIdDTO);
+    }
+
+    @PostMapping("/{eventId}/attendees")
+    public ResponseEntity<AttendeeIdDTO> createEvent(@PathVariable String eventId,
+                                                  @RequestBody AttendeeRequestDTO body,
+                                                  UriComponentsBuilder uriComponentsBuilder){
+        AttendeeIdDTO attendeeIdDTO = this.eventService.registerAttendeeOnEvent(eventId, body);
+        var uri = uriComponentsBuilder.path("/attendees/{attendeeId}/badge").buildAndExpand(attendeeIdDTO.attendeeid()).toUri();
+        return ResponseEntity.created(uri).body(attendeeIdDTO);
     }
 
     @GetMapping("/attendees/{eventId}")
