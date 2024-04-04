@@ -1,6 +1,7 @@
 package com.sytecnologias.passin.services;
 
 import com.sytecnologias.passin.domain.attendee.Attendees;
+import com.sytecnologias.passin.domain.attendee.exceptions.AttendeeAlreadyExistException;
 import com.sytecnologias.passin.domain.checkin.CheckIn;
 import com.sytecnologias.passin.dto.attendee.AttendeeDetail;
 import com.sytecnologias.passin.dto.attendee.AttendeesListResponseDTO;
@@ -36,5 +37,14 @@ public class AttendeeService {
         return new AttendeesListResponseDTO(attendeeDetailsList);
     }
 
+    public Attendees registerAttendee(Attendees newAttendee){
+        this.attendeesRepository.save(newAttendee);
+        return newAttendee;
+    }
+
+    public void verifyAttendeeSubscription(String email, String eventId){
+        Optional<Attendees> isAttendeeRegister = this.attendeesRepository.findByEventIdAndEmail(eventId, email);
+        if(isAttendeeRegister.isPresent()) throw new AttendeeAlreadyExistException("Attendee is already registred.");
+    }
 
 }
