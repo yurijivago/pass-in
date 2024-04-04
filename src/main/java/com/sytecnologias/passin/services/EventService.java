@@ -3,12 +3,10 @@ package com.sytecnologias.passin.services;
 import com.sytecnologias.passin.domain.attendee.Attendees;
 import com.sytecnologias.passin.domain.event.Events;
 import com.sytecnologias.passin.domain.event.exceptions.EventNotFoundException;
-import com.sytecnologias.passin.dto.EventIdDTO;
-import com.sytecnologias.passin.dto.EventRequestDTO;
-import com.sytecnologias.passin.dto.EventResponseDTO;
-import com.sytecnologias.passin.repositories.AttendeesRepository;
+import com.sytecnologias.passin.dto.event.EventIdDTO;
+import com.sytecnologias.passin.dto.event.EventRequestDTO;
+import com.sytecnologias.passin.dto.event.EventResponseDTO;
 import com.sytecnologias.passin.repositories.EventRepository;
-import jdk.jfr.Event;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,12 +17,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class EventService {
     private final EventRepository eventRepository;
-    private final AttendeesRepository attendeesRepository;
+    private final AttendeeService attendeeService;
 
     public EventResponseDTO getEventDetail(String eventId){
         Events event = this.eventRepository.findById(eventId)
                 .orElseThrow( () -> new EventNotFoundException("Event not found with ID " + eventId));
-        List<Attendees> attendeesList = this.attendeesRepository.findByEventId(eventId);
+        List<Attendees> attendeesList = attendeeService.getAllAttendeesFromEvents(eventId);
         return new EventResponseDTO(event, attendeesList.size());
     }
 

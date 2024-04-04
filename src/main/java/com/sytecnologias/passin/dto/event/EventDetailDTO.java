@@ -1,4 +1,4 @@
-package com.sytecnologias.passin.dto;
+package com.sytecnologias.passin.dto.event;
 
 public record EventDetailDTO(String id, String title, String details,
                              String slug, Integer maximumAttendees, Integer attendeesAmount) {

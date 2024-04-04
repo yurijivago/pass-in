@@ -1,4 +1,4 @@
-package com.sytecnologias.passin.dto;
+package com.sytecnologias.passin.dto.event;
 
 import com.sytecnologias.passin.domain.event.Events;
 import lombok.Getter;
