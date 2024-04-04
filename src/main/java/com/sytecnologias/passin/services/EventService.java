@@ -2,6 +2,7 @@ package com.sytecnologias.passin.services;
 
 import com.sytecnologias.passin.domain.attendee.Attendees;
 import com.sytecnologias.passin.domain.event.Events;
+import com.sytecnologias.passin.domain.event.exceptions.EventNotFoundException;
 import com.sytecnologias.passin.dto.EventIdDTO;
 import com.sytecnologias.passin.dto.EventRequestDTO;
 import com.sytecnologias.passin.dto.EventResponseDTO;
@@ -22,7 +23,7 @@ public class EventService {
 
     public EventResponseDTO getEventDetail(String eventId){
         Events event = this.eventRepository.findById(eventId)
-                .orElseThrow( () -> new RuntimeException("Event not found with ID " + eventId));
+                .orElseThrow( () -> new EventNotFoundException("Event not found with ID " + eventId));
         List<Attendees> attendeesList = this.attendeesRepository.findByEventId(eventId);
         return new EventResponseDTO(event, attendeesList.size());
     }
